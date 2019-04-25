@@ -1,0 +1,27 @@
+﻿@model MVCAddressBook.Address
+
+@{
+    ViewBag.Title = "Delete";
+}
+
+<h2>Delete</h2>
+
+<h3>Are you sure you want to delete this?</h3>
+<hr />
+
+@*Use partial view*@
+@Html.Partial("_AddressDetails",Model)
+
+<div class="col-sm-6">
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+        <div class="form-actions no-color">
+            @Html.HiddenFor(model => model.AddressID)
+            <div style="margin:10px 0">
+                <input type="submit" value="Delete" class="btn btn-danger" />
+            </div>
+        </div> 
+    }
+</div>
+

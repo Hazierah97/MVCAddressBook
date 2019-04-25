@@ -1,0 +1,66 @@
+﻿
+@model IEnumerable<MVCAddressBook.ViewModel.AddressModel>
+
+@{
+    ViewBag.Title = "Contact List";
+    var grid = new WebGrid(source: Model, canPage: true, canSort: true, rowsPerPage: 10);
+    //grid.Bind(source: Model, rowCount: ViewBag.TotalRows, autoSortAndPage: false);
+}
+
+<h3>Address List</h3>
+<div class="navbar-form navbar-left" role="search">
+<div class="container-fluid">
+    <div class="navbar-header">
+        <a href="#" class="navbar-brand">Search</a>
+    </div>
+    <div class="collapse navbar-collapse">
+        @using (Html.BeginForm("Index", "Home", FormMethod.Get, new { @class = "navbar-fnre navbar-left" }))
+        {
+            <div class="form-group">
+                <input type="text" name="search" value="@ViewBag.search" class="form-control" placeholder="Search" />
+            </div>
+            <button type="submit" value="search" class="btn btn-success">Search</button>
+        }
+    </div>
+</div>
+</div>
+<div style="overflow:auto">
+
+    @grid.GetHtml(
+        tableStyle: "table table-responsive table-striped table-hover",
+        footerStyle: "table-pager",
+        columns: grid.Columns
+        (
+            grid.Column("Name", "Name"),
+            grid.Column("Surname", "Surname"),
+            grid.Column("Email", "Email"),
+            grid.Column(header: "Image", format:@<text>@Html.Raw((item.ImagePath == null ? "" : "<img width='100' alt='' src='/image/" + item.ImagePath + "'"))</text>),
+                                            grid.Column(header: "View", format: (item) => Html.ActionLink("View", "View", "Home", new { id = item.AddressID }, null)),
+                                            grid.Column(header: "Edit", format: (item) => Html.ActionLink("Edit", "Edit", "Home", new { id = item.AddressID }, null)),
+                                            grid.Column(header: "Delete", format: (item) => Html.ActionLink("Delete", "Delete", "Home", new { id = item.AddressID }, null))
+                                         )
+
+                                        )
+    .
+
+</div>
+@Html.Hidden("dir", grid.SortDirection)
+@Html.Hidden("col", grid.SortColumn)
+
+<script>
+    $(function () {
+        try {
+            var dir = $('#dir').val();
+            var col = $('#col').val();
+            var header = $("th a[href*=" + col + "]");
+            if (dir == "Ascending") {
+                header.text(header.text() + "  ▲")
+            }
+            if (dir == "Descending") {
+                header.text(header.text() + "  ▼");
+            }
+
+        } catch (e) {
+
+        })
+</script>

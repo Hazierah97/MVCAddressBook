@@ -1,0 +1,19 @@
+﻿@model MVCAddressBook.Address
+
+@{
+    ViewBag.Title = "View";
+}
+
+<h2>View</h2>
+
+@Html.Partial("_AddressDetails", Model) @*in file View -> Shared -> _AddressDetails.cshtml*@
+
+@*@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    <div class="form-actions no-color">
+        @Html.HiddenFor(a => a.AddressID)
+        
+        @Html.ActionLink("Back to List", "Index")
+    </div>
+}*@

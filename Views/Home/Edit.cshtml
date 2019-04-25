@@ -1,0 +1,108 @@
+﻿@model MVCAddressBook.Address
+
+@{
+    ViewBag.Title = "Edit";
+}
+
+<h2>Edit</h2>
+
+
+@using (Html.BeginForm("Edit", "Home", FormMethod.Post, new { @class = "form-horizontal" }))
+{
+    @Html.AntiForgeryToken() //prevent CSRF Attack
+    @Html.HiddenFor(model => model.AddressID)
+    //customize the form for good lloks and support bootstrap responsive view
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.Name, new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.TextBoxFor(model => model.Name, new { @class = "form-control", placeholder = "Enter name" })
+            @Html.ValidationMessageFor(model => model.Name)
+        </div>
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(model => model.Surname, new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.TextBoxFor(model => model.Surname, new { @class = "form-control", placeholder = "Enter surname" })
+            @Html.ValidationMessageFor(model => model.Surname)
+        </div>
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(model => model.Address1, new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.TextBoxFor(model => model.Address1, new { @class = "form-control", placeholder = "Enter address line 1" })
+            @Html.ValidationMessageFor(model => model.Address1)
+        </div>
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(model => model.Address2, new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.TextBoxFor(model => model.Address2, new { @class = "form-control", placeholder = "Enter address line 2" })
+            @Html.ValidationMessageFor(model => model.Address1)
+        </div>
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(model => model.Postcode, new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.TextBoxFor(model => model.Postcode, new { @class = "form-control", placeholder = "Enter postcode" })
+            @Html.ValidationMessageFor(model => model.Postcode)
+        </div>
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(model => model.Town, new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.TextBoxFor(model => model.Town, new { @class = "form-control", placeholder = "Enter town" })
+            @Html.ValidationMessageFor(model => model.Town)
+        </div>
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(model => model.CountryID, new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.DropDownListFor(model => model.CountryID, @ViewBag.Country as SelectList, "Select Country", new { @class = "form-control" })
+            @Html.ValidationMessageFor(model => model.CountryID)
+        </div>
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(model => model.Email, new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.TextBoxFor(model => model.Email, new { @class = "form-control", placeholder = "Enter email" })
+            @Html.ValidationMessageFor(model => model.Email)
+        </div>
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(model => model.MobileNumber, new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.TextBoxFor(model => model.MobileNumber, new { @class = "form-control", placeholder = "Enter mobile number" })
+            @Html.ValidationMessageFor(model => model.MobileNumber)
+        </div>
+    </div>
+
+    //to get image from file
+    <div class="form-group">
+        <label class="control-label col-md-2">Select File : </label>
+        <div class="col-md-10">
+            @Html.TextBox("file", null, new { type = "file", @class = "form-control", accept = "image/x-png, image/gif, image/jpeg" })
+            @Html.ValidationMessage("FileErrorMessage")
+        </div>
+        @* if show image exist *@
+        <div class="col-md-5" style="display:@(string.IsNullOrEmpty(Model.ImagePath)? "none":"block")">
+            <img src="/image/@Model.ImagePath" alt="" width="100" />
+        </div>
+    </div>
+
+    //button
+    <div class="form-group">
+        <div class="col-md-offset-2 col-md-10">
+            <input type="submit" value="Create" class="btn btn-primary" />
+        </div>
+    </div>
+}
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+
+}
